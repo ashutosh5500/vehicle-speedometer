@@ -5,15 +5,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 import com.example.demoproject.dashboard.DashboardScreen
 import com.example.demoproject.dashboard.DashboardViewModel
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val model: DashboardViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge(
@@ -22,7 +25,6 @@ class MainActivity : ComponentActivity() {
         )
         setContent {
             MaterialTheme(colorScheme = darkColorScheme()) {
-                val model: DashboardViewModel = viewModel()
                 val state by model.state.collectAsStateWithLifecycle()
                 DashboardScreen(state)
             }

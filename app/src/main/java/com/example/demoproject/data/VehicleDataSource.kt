@@ -1,5 +1,6 @@
 package com.example.demoproject.data
 
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -16,7 +17,7 @@ fun interface VehicleDataSource {
 }
 
 /** Repeats the five assignment scenarios, then two deliberate signal failures. */
-class SimulatedVehicleDataSource : VehicleDataSource {
+class SimulatedVehicleDataSource @Inject constructor() : VehicleDataSource {
     override fun observe(): Flow<VehicleData?> = flow {
         val scenarios = listOf(
             VehicleData(0f, false, false, "Parked"),
